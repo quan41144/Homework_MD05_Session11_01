@@ -1,0 +1,10 @@
+proxy_pass:
+- Bắt toàn bộ HTTP request mà người dùng gửi tới Nginx
+- Đóng vai trò làm trung gian, mang request gửi đến địa chỉ http://localhost:3000
+- Đợi ứng dụng (port 3000) xử lý, lấy kết quả trả về cho trình duyệt người dùng
+Bẫy: HTTP Code khi ứng dụng React bị sập
+Nếu ứng dụng React ở port 3000 bị sập thì Nginx sẽ trả về HTTP 502 Bad Gateway
+Vì: Nginx vẫn đang hoạt động ở port 80, khi Nginx nhận được request từ người dùng
+và cố gắng chuyển tiếp nó tới localhost:3000, cổng 3000 từ chối kết nối vì không
+có tiến trình nào lắng nghe ở đó, Nginx hiểu rằng server phía sau đang gặp sự cố
+và trả mã 502 cho client
